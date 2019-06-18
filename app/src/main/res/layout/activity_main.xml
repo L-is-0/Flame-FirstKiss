@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="120dp"
+                  android:layout_gravity="center_vertical"
+                  android:orientation="vertical">
+        <TextView
+                android:id="@+id/tvFind"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:background="#C4BEBE"
+                android:textSize="14pt"
+                android:onClick="onFindClicked"
+                android:textStyle="bold"
+                android:text="Find a story!"/>
+        <TextView
+                android:id="@+id/tvRecord"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:background="#C4BEBE"
+                android:textSize="14pt"
+                android:onClick="onRecordClicked"
+                android:textStyle="bold"
+                android:text="Record a story!"/>
+    </LinearLayout>
+</LinearLayout>
