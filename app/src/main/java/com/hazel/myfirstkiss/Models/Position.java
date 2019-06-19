@@ -1,6 +1,6 @@
 package com.hazel.myfirstkiss.Models;
 
-public class Location {
+public class Position {
     private int locationId;
     private double locationLat;
     private double locationLong;
