@@ -78,7 +78,6 @@ public class FileStorage extends AppCompatActivity {
         lastUploadID = parsedResponse.getString("id");
         Log.d("FileStorage ID", lastUploadID);
         System.out.println(lastUploadID);
-
         System.out.println(builder.toString());
     }
 }
