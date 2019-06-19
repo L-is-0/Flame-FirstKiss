@@ -29,7 +29,7 @@ public class FileStorage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public void uploadFile(String filePath) throws IOException, JSONException {
+    public String uploadFile(String filePath) throws IOException, JSONException {
         System.out.println(filePath);
         String[] splitString = filePath.split("/");
         String fileName = splitString[splitString.length - 1];
@@ -77,8 +77,11 @@ public class FileStorage extends AppCompatActivity {
         JSONObject parsedResponse = new JSONObject(builder.toString());
         lastUploadID = parsedResponse.getString("id");
         Log.d("FileStorage ID", lastUploadID);
+
         System.out.println(lastUploadID);
 
         System.out.println(builder.toString());
+
+        return lastUploadID;
     }
 }

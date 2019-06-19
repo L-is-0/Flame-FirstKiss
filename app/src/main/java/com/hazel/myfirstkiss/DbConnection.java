@@ -1,5 +1,9 @@
 package com.hazel.myfirstkiss;
 
+import android.app.AppComponentFactory;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.hazel.myfirstkiss.Models.Position;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.DB;
@@ -8,29 +12,49 @@ import com.mongodb.DBObject;
 import com.mongodb.BasicDBObject;
 import java.net.UnknownHostException;
 
-public class DbConnection {
-
+public class DbConnection extends AppCompatActivity {
     MongoClient mongoClient;
+    DbConnection connection;
+    DB database;
+    DBCollection collection;
+    double longtitue = 0;
+    double latitute = 0;
+    String identifier;
 
-    public DbConnection() throws UnknownHostException {
-        mongoClient = new MongoClient(new MongoClientURI("mongodb://database.hackathon.ict-flame.eu:27017"));
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        try {
+            mongoClient = new MongoClient(new MongoClientURI("mongodb://database.hackathon.ict-flame.eu:27017"));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void main(String[] args) throws UnknownHostException{
 
-        DbConnection connection = new DbConnection();
-        DB database = connection.mongoClient.getDB("myDB");
-        DBCollection collection = database.getCollection("User");
-        DBObject person1 = new BasicDBObject()
-                .append("userId", "1")
-                .append("userName", "wingwing")
-                .append("recordId", "1")
-                //.append("recordContent", "101010101")
-                .append("locationId", "1")
-                .append("locationLat", "101010101")
-                .append("locationLong", "101010101");
-        collection.insert(person1);
+    public void uploadToDb(Position p, String id){
+        connection = new DbConnection();
+        database = connection.mongoClient.getDB("echodb");
+        collection = database.getCollection("positions");
+
+        latitute = p.getLocationLat();
+        longtitue = p.getLocationLong();
+        identifier = id;
+
+        for (int i=-3; i<=3; i++){
+            DBObject location = new BasicDBObject()
+//                    .append("logtitude", longtitue)
+                    .append("lattitude", latitute+i)
+                    .append("identifier", identifier);
+            collection.insert(location);
+
+        }
     }
 
+    public void queryFromDb(double locationQuery){
+        DBObject found = collection.findOne(locationQuery);
+        String key = (String) found.get("identifier");
+    }
 }
 

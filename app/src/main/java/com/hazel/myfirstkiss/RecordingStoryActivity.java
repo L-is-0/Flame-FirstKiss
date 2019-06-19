@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import com.hazel.myfirstkiss.Models.Position;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -32,6 +33,10 @@ public class RecordingStoryActivity extends AppCompatActivity {
     private MediaRecorder myrecorder;
     private MediaPlayer myplayer;
     private FileStorage mStorage;
+
+    private String myIdentifier;
+
+    GetLocation mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,12 +150,21 @@ public class RecordingStoryActivity extends AppCompatActivity {
         if(!fileName.isEmpty())
         {
             mStorage = new FileStorage();
-            mStorage.uploadFile(fileName);
+            myIdentifier = mStorage.uploadFile(fileName);
 
             Toast.makeText(getApplicationContext(), "Your story has been uploaded!", Toast.LENGTH_LONG).show();
+            sendToDB(); //Send the current id number and position to database
             startActivity(new Intent(RecordingStoryActivity.this, MainActivity.class));
         }else{
             Log.d("File","File is not ready yet");
         }
+    }
+
+    public void sendToDB(){
+        mLocation = new GetLocation();
+        Position p = mLocation.retriveCurrentLocation();
+
+        DbConnection mConnection = new DbConnection();
+        mConnection.uploadToDb(p, myIdentifier);
     }
 }
