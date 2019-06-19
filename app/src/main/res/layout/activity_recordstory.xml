@@ -14,4 +14,14 @@
             android:textSize="14pt"
             android:text="Record Your story:"
     />
+
+    <Button android:id="@+id/btnPlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:textSize="14pt"
+            android:text="Play it"
+    />
 </LinearLayout>

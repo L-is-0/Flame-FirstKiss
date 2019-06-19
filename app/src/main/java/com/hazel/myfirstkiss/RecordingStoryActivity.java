@@ -1,21 +1,22 @@
 package com.hazel.myfirstkiss;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.media.MicrophoneDirection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class RecordingStoryActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -25,22 +26,34 @@ public class RecordingStoryActivity extends AppCompatActivity {
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
     boolean mStartRecording = true;
+    boolean mStartPlaying = true;
 
-    private Button btnRecord;
+    private Button btnRecord, btnPlay;
     private MediaRecorder myrecorder;
+    private MediaPlayer myplayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Record to the external cache directory for visibility
         fileName = getExternalCacheDir().getAbsolutePath();
+        fileName += "/audiorecordtest.3gp";
         Log.d("FilePath",fileName);
-        fileName += "audiorecordtest.3gp";
+
+//        File audioFolder = new File(Environment.getExternalStorageDirectory(),
+//                "recordings");
+//        if (!audioFolder.exists()) {
+//            boolean success = audioFolder.mkdir();
+//            if (success) {
+//                fileName = audioFolder + "/test.3pg";
+//            }
+//        }
 
 
         setContentView(R.layout.activity_recordstory);
 
         btnRecord = findViewById(R.id.btnRecord);
+        btnPlay = findViewById(R.id.btnPlay);
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
@@ -54,6 +67,19 @@ public class RecordingStoryActivity extends AppCompatActivity {
                     btnRecord.setText("Start recording");
                 }
                 mStartRecording = !mStartRecording;
+            }
+        });
+
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPlay(mStartPlaying);
+                if (mStartPlaying) {
+                    btnPlay.setText("Stop playing");
+                } else {
+                    btnPlay.setText("Start playing");
+                }
+                mStartPlaying = !mStartPlaying;
             }
         });
     }
@@ -76,6 +102,30 @@ public class RecordingStoryActivity extends AppCompatActivity {
         } else {
             stopRecording();
         }
+    }
+
+    private void onPlay(boolean start) {
+        if (start) {
+            startPlaying();
+        } else {
+            stopPlaying();
+        }
+    }
+
+    private void startPlaying() {
+        myplayer = new MediaPlayer();
+        try {
+            myplayer.setDataSource(fileName);
+            myplayer.prepare();
+            myplayer.start();
+        } catch (IOException e) {
+            Log.e(TAG, "prepare() failed");
+        }
+    }
+
+    private void stopPlaying() {
+        myplayer.release();
+        myplayer = null;
     }
 
     private void startRecording(){

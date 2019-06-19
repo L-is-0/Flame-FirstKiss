@@ -10,7 +10,7 @@
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_marginTop="120dp"
+                  android:layout_marginTop="20dp"
                   android:layout_gravity="center_vertical"
                   android:orientation="vertical">
         <TextView
@@ -37,5 +37,29 @@
                 android:onClick="onRecordClicked"
                 android:textStyle="bold"
                 android:text="Record a story!"/>
+        <TextView
+                android:id="@+id/tvPlay"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:background="#C4BEBE"
+                android:textSize="14pt"
+                android:onClick="onPlayClicked"
+                android:textStyle="bold"
+                android:text="Play a story!"/>
+        <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:background="#C4BEBE"
+                android:textSize="14pt"
+                android:onClick="onLocationClicked"
+                android:textStyle="bold"
+                android:text="Show location!"/>
     </LinearLayout>
 </LinearLayout>

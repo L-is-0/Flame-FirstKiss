@@ -4,6 +4,7 @@ public class Location {
     private int locationId;
     private double locationLat;
     private double locationLong;
+    private int recordingId;
 
     public void setLocationId(int id){
         this.locationId = id;
@@ -27,5 +28,13 @@ public class Location {
 
     public double getLocationLong(){
         return this.locationLong;
+    }
+
+    public void setRecordingId(int reId){
+        this.recordingId = reId;
+    }
+
+    public int getRecordingId(){
+        return this.recordingId;
     }
 }
