@@ -140,7 +140,6 @@ public class GetLocation extends AppCompatActivity implements GoogleApiClient.Co
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
         // Permissions ok, we get last location
         location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
