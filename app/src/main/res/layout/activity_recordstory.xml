@@ -5,12 +5,21 @@
               android:layout_height="match_parent"
               tools:context=".RecordingStoryActivity">
 
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="40dp"
+              android:textSize="14pt"
+              android:textStyle="bold"
+              android:id="@+id/location"
+              android:text="Record Story:"
+    />
     <Button android:id="@+id/btnRecord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="40dp"
             android:textSize="14pt"
             android:text="Record Your story:"
     />
@@ -18,10 +27,22 @@
     <Button android:id="@+id/btnPlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
             android:textSize="14pt"
             android:text="Play it"
+    />
+
+    <Button android:id="@+id/btnUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="60dp"
+            android:onClick="onUploadClicked"
+            android:background="#8895DB"
+            android:textSize="14pt"
+            android:text="Upload"
     />
 </LinearLayout>

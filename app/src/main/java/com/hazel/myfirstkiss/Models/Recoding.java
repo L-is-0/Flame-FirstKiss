@@ -1,7 +1,7 @@
 package com.hazel.myfirstkiss.Models;
 
 public class Recoding {
-    private int recordId;;
+    private int recordId;
     private String recordContent;
 
     public void setRecordId(int id){

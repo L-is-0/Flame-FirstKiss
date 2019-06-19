@@ -3,6 +3,7 @@ package com.hazel.myfirstkiss;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.TextView;
@@ -17,12 +18,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setContentView(R.layout.activity_main);
 
         tvFind = findViewById(R.id.tvFind);
         tvRecord = findViewById(R.id.tvRecord);
         tvPlay = findViewById(R.id.tvPlay);
-
         LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = service
                 .isProviderEnabled(LocationManager.GPS_PROVIDER);
