@@ -19,6 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.hazel.myfirstkiss.Models.Position;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,8 @@ public class GetLocation extends AppCompatActivity implements GoogleApiClient.Co
     // integer for permissions results request
     private static final int ALL_PERMISSIONS_RESULT = 1011;
 
+    Position mPosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class GetLocation extends AppCompatActivity implements GoogleApiClient.Co
         longtitudeTv = findViewById(R.id.tvLongtitude);
         lantitudeTv = findViewById(R.id.tvLatitude);
         locationTv = findViewById(R.id.location);
+
+        mPosition = new Position();
         // we add permissions we need to request location of the users
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -145,6 +150,7 @@ public class GetLocation extends AppCompatActivity implements GoogleApiClient.Co
 
         if (location != null) {
             lantitudeTv.setText("Latitude : " + location.getLatitude());
+            mPosition.setLocationLat(location.getLatitude());
         }
 
         startLocationUpdates();
@@ -178,6 +184,7 @@ public class GetLocation extends AppCompatActivity implements GoogleApiClient.Co
     public void onLocationChanged(Location location) {
         if (location != null) {
             longtitudeTv.setText("Longitude : " + location.getLongitude());
+            mPosition.setLocationLong(location.getLongitude());
         }
     }
 
@@ -219,4 +226,7 @@ public class GetLocation extends AppCompatActivity implements GoogleApiClient.Co
         }
     }
 
+    public Position retriveCurrentLocation(){
+        return this.mPosition;
+    }
 }

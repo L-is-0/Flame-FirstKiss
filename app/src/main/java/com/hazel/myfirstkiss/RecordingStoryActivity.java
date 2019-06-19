@@ -1,22 +1,22 @@
 package com.hazel.myfirstkiss;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import org.json.JSONException;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 public class RecordingStoryActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -31,6 +31,7 @@ public class RecordingStoryActivity extends AppCompatActivity {
     private Button btnRecord, btnPlay;
     private MediaRecorder myrecorder;
     private MediaPlayer myplayer;
+    private FileStorage mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,6 @@ public class RecordingStoryActivity extends AppCompatActivity {
         fileName = getExternalCacheDir().getAbsolutePath();
         fileName += "/audiorecordtest.3gp";
         Log.d("FilePath",fileName);
-
-//        File audioFolder = new File(Environment.getExternalStorageDirectory(),
-//                "recordings");
-//        if (!audioFolder.exists()) {
-//            boolean success = audioFolder.mkdir();
-//            if (success) {
-//                fileName = audioFolder + "/test.3pg";
-//            }
-//        }
-
 
         setContentView(R.layout.activity_recordstory);
 
@@ -150,4 +141,16 @@ public class RecordingStoryActivity extends AppCompatActivity {
         myrecorder = null;
     }
 
+    public void onUploadClicked(View v) throws IOException, JSONException {
+        if(!fileName.isEmpty())
+        {
+            mStorage = new FileStorage();
+            mStorage.uploadFile(fileName);
+
+            Toast.makeText(getApplicationContext(), "Your story has been uploaded!", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(RecordingStoryActivity.this, MainActivity.class));
+        }else{
+            Log.d("File","File is not ready yet");
+        }
+    }
 }
